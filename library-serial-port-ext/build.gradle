@@ -1,18 +1,18 @@
 apply plugin: 'com.android.library'
 
-
+ext.libVersion = "3.0.0"
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName rootProject.ext.versionName
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         ndk {
             moduleName = "serial_port_ext"
+            // 不要x86了，只留下arm
+            abiFilters "arm64-v8a", "armeabi-v7a"
         }
     }
     buildTypes {
@@ -39,6 +39,6 @@ dependencies {
 
     compileOnly("androidx.annotation:annotation:1.3.0")
 }
-
+apply from: "../../public/KeyLibraryMavenCentralUploader.gradle"
 //apply from: '../maven_publish.gradle'
 

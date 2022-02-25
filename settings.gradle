@@ -1,1 +1,1 @@
-include ':serialport', ':sample'
+include ':library-serial-port-ext', ':sample'
