@@ -11,6 +11,9 @@ android {
         versionName rootProject.ext.versionName
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        ndk {
+            moduleName = "serial_port_ext"
+        }
     }
     buildTypes {
         release {
@@ -34,8 +37,8 @@ dependencies {
 //    testCompile 'junit:junit:4.12'
 
 
-    api "androidx.annotation:annotation:1.1.0"
+    compileOnly("androidx.annotation:annotation:1.3.0")
 }
 
-apply from: '../maven_publish.gradle'
+//apply from: '../maven_publish.gradle'
 

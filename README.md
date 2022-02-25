@@ -1,3 +1,9 @@
+# Fork后修改
+    * 修改so库名，防止和项目中其他依赖了Google原生库的重名问题
+        > 因为Google库open是三个参数，本库为6个参数，同名后忽略一个so会导致，open函数找不到入口
+    * so库改名为：`libserial_port_ext.so`
+    * loadLibrary为：`serial_port_ext`
+
 # Android-SerialPort-API
 [Fork](https://code.google.com/archive/p/android-serialport-api/)自Google开源的Android串口通信Demo，修改成Android Studio项目 
 

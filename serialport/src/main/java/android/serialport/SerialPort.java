@@ -29,11 +29,12 @@ import java.io.OutputStream;
 
 public final class SerialPort {
 
-    private static final String TAG = "SerialPort";
+    private static final String TAG = "SerialPortExt";
 
-    public static final String DEFAULT_SU_PATH = "/system/bin/su";
+    public static final String BIN_SU_PATH = "/system/bin/su";
+    public static final String XBIN_SU_PATH = "/system/xbin/su";
 
-    private static String sSuPath = DEFAULT_SU_PATH;
+    private static String sSuPath = XBIN_SU_PATH;
     private File device;
     private int baudrate;
     private int dataBits;
@@ -42,7 +43,7 @@ public final class SerialPort {
     private int flags;
 
     /**
-     * Set the su binary path, the default su binary path is {@link #DEFAULT_SU_PATH}
+     * Set the su binary path, the default su binary path is {@link #BIN_SU_PATH} {@link #XBIN_SU_PATH}
      *
      * @param suPath su binary path
      */
@@ -215,7 +216,7 @@ public final class SerialPort {
     }
 
     static {
-        System.loadLibrary("serial_port");
+        System.loadLibrary("serial_port_ext");
     }
 
     public static Builder newBuilder(File device, int baudrate) {
