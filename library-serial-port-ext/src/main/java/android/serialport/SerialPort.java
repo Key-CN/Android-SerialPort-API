@@ -17,8 +17,10 @@
 package android.serialport;
 
 import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
@@ -74,17 +76,21 @@ public final class SerialPort {
     /**
      * 串口
      *
-     * @param device 串口设备文件
+     * @param device   串口设备文件
      * @param baudrate 波特率
      * @param dataBits 数据位；默认8,可选值为5~8
-     * @param parity 奇偶校验；0:无校验位(NONE，默认)；1:奇校验位(ODD);2:偶校验位(EVEN)
+     * @param parity   奇偶校验；0:无校验位(NONE，默认)；1:奇校验位(ODD);2:偶校验位(EVEN)
      * @param stopBits 停止位；默认1；1:1位停止位；2:2位停止位
-     * @param flags 默认0
+     * @param flags    默认0
      * @throws SecurityException
      * @throws IOException
      */
-    public SerialPort(@NonNull File device, int baudrate, int dataBits, int parity, int stopBits,
-        int flags) throws SecurityException, IOException {
+    public SerialPort(@NonNull File device,
+                      int baudrate,
+                      int dataBits,
+                      int parity,
+                      int stopBits,
+                      int flags) throws SecurityException, IOException {
 
         this.device = device;
         this.baudrate = baudrate;
@@ -122,7 +128,7 @@ public final class SerialPort {
     /**
      * 串口，默认的8n1
      *
-     * @param device 串口设备文件
+     * @param device   串口设备文件
      * @param baudrate 波特率
      * @throws SecurityException
      * @throws IOException
@@ -132,18 +138,34 @@ public final class SerialPort {
     }
 
     /**
+     * 适配原版的3参，默认的8n1
+     *
+     * @param device   串口设备文件
+     * @param baudrate 波特率
+     * @param flags
+     * @throws SecurityException
+     * @throws IOException
+     */
+    public SerialPort(@NonNull File device, int baudrate, int flags) throws SecurityException, IOException {
+        this(device, baudrate, 8, 0, 1, flags);
+    }
+
+    /**
      * 串口
      *
-     * @param device 串口设备文件
+     * @param device   串口设备文件
      * @param baudrate 波特率
      * @param dataBits 数据位；默认8,可选值为5~8
-     * @param parity 奇偶校验；0:无校验位(NONE，默认)；1:奇校验位(ODD);2:偶校验位(EVEN)
+     * @param parity   奇偶校验；0:无校验位(NONE，默认)；1:奇校验位(ODD);2:偶校验位(EVEN)
      * @param stopBits 停止位；默认1；1:1位停止位；2:2位停止位
      * @throws SecurityException
      * @throws IOException
      */
-    public SerialPort(@NonNull File device, int baudrate, int dataBits, int parity, int stopBits)
-        throws SecurityException, IOException {
+    public SerialPort(@NonNull File device,
+                      int baudrate,
+                      int dataBits,
+                      int parity,
+                      int stopBits) throws SecurityException, IOException {
         this(device, baudrate, dataBits, parity, stopBits, 0);
     }
 
@@ -158,28 +180,38 @@ public final class SerialPort {
         return mFileOutputStream;
     }
 
-    /** 串口设备文件 */
+    /**
+     * 串口设备文件
+     */
     @NonNull
     public File getDevice() {
         return device;
     }
 
-    /** 波特率 */
+    /**
+     * 波特率
+     */
     public int getBaudrate() {
         return baudrate;
     }
 
-    /** 数据位；默认8,可选值为5~8 */
+    /**
+     * 数据位；默认8,可选值为5~8
+     */
     public int getDataBits() {
         return dataBits;
     }
 
-    /** 奇偶校验；0:无校验位(NONE，默认)；1:奇校验位(ODD);2:偶校验位(EVEN) */
+    /**
+     * 奇偶校验；0:无校验位(NONE，默认)；1:奇校验位(ODD);2:偶校验位(EVEN)
+     */
     public int getParity() {
         return parity;
     }
 
-    /** 停止位；默认1；1:1位停止位；2:2位停止位 */
+    /**
+     * 停止位；默认1；1:1位停止位；2:2位停止位
+     */
     public int getStopBits() {
         return stopBits;
     }
@@ -189,12 +221,18 @@ public final class SerialPort {
     }
 
     // JNI
-    private native FileDescriptor open(String absolutePath, int baudrate, int dataBits, int parity,
-        int stopBits, int flags);
+    private native FileDescriptor open(String absolutePath,
+                                       int baudrate,
+                                       int dataBits,
+                                       int parity,
+                                       int stopBits,
+                                       int flags);
 
     public native void close();
 
-    /** 关闭流和串口，已经try-catch */
+    /**
+     * 关闭流和串口，已经try-catch
+     */
     public void tryClose() {
         try {
             mFileInputStream.close();
