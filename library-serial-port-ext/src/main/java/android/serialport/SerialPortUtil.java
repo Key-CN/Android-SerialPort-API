@@ -55,6 +55,18 @@ public class SerialPortUtil {
         }
     }
 
+    public static boolean isValidTtyPath(String ttyPath) {
+        boolean isValid = false;
+        String[] availablePorts = getAvailablePorts();
+        for (String port : availablePorts) {
+            if (port.equals(ttyPath)) {
+                isValid = true;
+                break;
+            }
+        }
+        return isValid;
+    }
+
     /**
      * 获取最新的所有串口地址列表
      * 原版的东西不要改，因为已经是历史API了，太多人太多地方调用
