@@ -1,11 +1,20 @@
 # Fork后修改
+
     * 修改so库名，防止和项目中其他依赖了Google原生库的重名问题
         > 因为Google库open是三个参数，本库为6个参数，同名后忽略一个so会导致，open函数找不到入口
+
     * so库改名为：`libserial_port_ext.so`
+
     * loadLibrary为：`serial_port_ext`
 
+    * so只保留了"arm64-v8a", "armeabi-v7a"两种架构
+
+    * 新增一个波特率有效性的判断方法，在SerialPortUtil中，因为SerialPort.c中判断了常规的波特率
+
+
+
 # Android-SerialPort-API
-[Fork](https://code.google.com/archive/p/android-serialport-api/)自Google开源的Android串口通信Demo，修改成Android Studio项目 
+[Fork](https://code.google.com/archive/p/android-serialport-api/)自Google开源的Android串口通信Demo，修改成Android Studio项目
 
 This lib is a [fork](https://code.google.com/archive/p/android-serialport-api/) of the Android serial port communication Demo open sourced by Google.
 
@@ -57,19 +66,19 @@ SerialPort serialPort = new SerialPort(path, baudrate);
 
 // 可选配置数据位、校验位、停止位 - 7E2(7数据位、偶校验、2停止位)
 // or with builder (with optional configurations) - 7E2 (7 data bits, even parity, 2 stop bits)
-SerialPort serialPort = SerialPort 
+SerialPort serialPort = SerialPort
     .newBuilder(path, baudrate)
 // 校验位；0:无校验位(NONE，默认)；1:奇校验位(ODD);2:偶校验位(EVEN)
 // Check bit; 0: no check bit (NONE, default); 1: odd check bit (ODD); 2: even check bit (EVEN)
-//    .parity(2) 
+//    .parity(2)
 // 数据位,默认8；可选值为5~8
 // Data bit, default 8; optional value is 5~8
-//    .dataBits(7) 
+//    .dataBits(7)
 // 停止位，默认1；1:1位停止位；2:2位停止位
 // Stop bit, default 1; 1:1 stop bit; 2: 2 stop bit
-//    .stopBits(2) 
+//    .stopBits(2)
     .build();
-    
+
 // read/write to serial port - needs to be in different thread!
 InputStream in = serialPort.getInputStream();
 OutputStream out = serialPort.getOutputStream();
