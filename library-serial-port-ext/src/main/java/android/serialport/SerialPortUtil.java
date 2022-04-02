@@ -1,5 +1,7 @@
 package android.serialport;
 
+import androidx.annotation.NonNull;
+
 /**
  * @author Key
  * Time: 2022/04/02 17:30
@@ -11,8 +13,8 @@ public class SerialPortUtil {
      * 是否是常用波特率，因为c代码那边是有控制的，所以虽然波特率可以随意，但是输入不常用的，那边只会返回-1，所以还是提前检测好比较好
      * 从SerialPort.c复制过来的，跟写个List.contains()也没差
      *
-     * @param baudRate
-     * @return
+     * @param baudRate 波特率
+     * @return 是否可用
      */
     public static boolean isValidBaudRete(int baudRate) {
         switch (baudRate) {
@@ -51,5 +53,16 @@ public class SerialPortUtil {
             default:
                 return false;
         }
+    }
+
+    /**
+     * 获取最新的所有串口地址列表
+     * 原版的东西不要改，因为已经是历史API了，太多人太多地方调用
+     */
+    @NonNull
+    public static String[] getAvailablePorts() {
+        // 不单例，会缓存，直接匿名每次刷新
+        SerialPortFinder serialPortFinder = new SerialPortFinder();
+        return serialPortFinder.getAllDevicesPath();
     }
 }
