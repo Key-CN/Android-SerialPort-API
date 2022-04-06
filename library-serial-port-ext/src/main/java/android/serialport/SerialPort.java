@@ -36,7 +36,10 @@ public final class SerialPort {
     public static final String BIN_SU_PATH = "/system/bin/su";
     public static final String XBIN_SU_PATH = "/system/xbin/su";
 
-    private static String sSuPath = XBIN_SU_PATH;
+    /**
+     * 默认地址改成软连接su，可以自适应位置
+     */
+    private static String sSuPath = "su";
     private File device;
     private int baudrate;
     private int dataBits;
@@ -105,7 +108,7 @@ public final class SerialPort {
                 /* Missing read/write permission, trying to chmod the file */
                 Process su;
                 su = Runtime.getRuntime().exec(sSuPath);
-                String cmd = "chmod 666 " + device.getAbsolutePath() + "\n" + "exit\n";
+                String cmd = "chmod 666 " + device.getAbsolutePath() + "\nexit\n";
                 su.getOutputStream().write(cmd.getBytes());
                 if ((su.waitFor() != 0) || !device.canRead() || !device.canWrite()) {
                     throw new SecurityException();
