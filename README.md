@@ -1,15 +1,16 @@
 # Fork后修改
+  * 修改so库名，防止和项目中其他依赖了Google原生库的重名问题
+    > 因为Google库open是三个参数，本库为6个参数，同名后忽略一个so会导致，open函数找不到入口
 
-    * 修改so库名，防止和项目中其他依赖了Google原生库的重名问题
-        > 因为Google库open是三个参数，本库为6个参数，同名后忽略一个so会导致，open函数找不到入口
+  * so库改名为：`libserial_port_ext.so`
 
-    * so库改名为：`libserial_port_ext.so`
+  * loadLibrary为：`serial_port_ext`
 
-    * loadLibrary为：`serial_port_ext`
+  * so只保留了"arm64-v8a", "armeabi-v7a"两种架构
 
-    * so只保留了"arm64-v8a", "armeabi-v7a"两种架构
+  * 新增一个波特率有效性的判断方法，在SerialPortUtil中，因为SerialPort.c中判断了常规的波特率
 
-    * 新增一个波特率有效性的判断方法，在SerialPortUtil中，因为SerialPort.c中判断了常规的波特率
+  * 新增一个write方法，方便使用，不用再在外部持有FileOutputStream
 
 
 

@@ -256,6 +256,25 @@ public final class SerialPort {
         }
     }
 
+    public boolean write(byte[] buffer) {
+        try {
+            if (this.mFileOutputStream == null) {
+                return false;
+            } else {
+                this.mFileOutputStream.write(buffer);
+                this.mFileOutputStream.flush();
+                return true;
+            }
+        } catch (IOException exception) {
+            Log.e(TAG, "write bytes error", exception);
+            return false;
+        }
+    }
+
+    public boolean write(String str) {
+        return this.write(str.getBytes());
+    }
+
     static {
         System.loadLibrary("serial_port_ext");
     }
